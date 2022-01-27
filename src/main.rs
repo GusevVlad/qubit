@@ -9,7 +9,7 @@ use yew::prelude::*;
 use yew::ShouldRender;
 
 use newton_rootfinder as nrf;
-use nrf::model::Model; // trait import
+use nrf::model::Model as nrf_m; // trait import
 
 mod convert_chart;
 mod parser;
