@@ -8,6 +8,9 @@ use yew::ComponentLink;
 use yew::prelude::*;
 use yew::ShouldRender;
 
+use newton_rootfinder as nrf;
+use nrf::model::Model; // trait import
+
 mod convert_chart;
 mod parser;
 mod test;
