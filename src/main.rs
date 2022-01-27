@@ -8,8 +8,6 @@ use yew::ComponentLink;
 use yew::prelude::*;
 use yew::ShouldRender;
 
-use newton_rootfinder as nrf;
-use nrf::model::Model as nrf_m; // trait import
 
 mod convert_chart;
 mod parser;
@@ -65,7 +63,8 @@ impl Component for Model {
                     output = format!("{}{}", output, transform(p) + "\n");
                 }
 
-                self.total = total;
+                // self.total = total;
+                self.total = parser::solve_rb();
                 self.text = output;
                 true
             }
@@ -114,8 +113,12 @@ impl Component for Model {
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
+        
         };
     }
 }

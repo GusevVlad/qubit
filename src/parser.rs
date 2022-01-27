@@ -140,3 +140,70 @@ pub fn parse(input: &str) -> f64 {
         Err(_) => f64::NAN,
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+use newton_rootfinder as nrf;
+use nrf::model::Model as nrf_m; // trait import
+
+
+fn sq3(x: &nalgebra::DVector<f64>) -> nalgebra::DVector<f64> {
+    let y = x * x * x * x * x;
+    y
+}
+
+// Function to optimize: x**2 = 2
+pub fn square2(x: &nalgebra::DVector<f64>) -> nalgebra::DVector<f64> {
+    let mut y = x * sq3(x);
+    y[0] -= 2.0;
+   y
+}
+
+pub fn solve_rb() -> f64 {
+
+    let problem_size = 1;
+
+    // Parametrization of the iteratives variables
+    let vec_iter_params = nrf::iteratives::default_vec_iteratives_fd(problem_size);
+    let iter_params = nrf::iteratives::Iteratives::new(&vec_iter_params);
+
+    // Parametrization of the residuals
+    let stopping_residuals = vec![nrf::residuals::NormalizationMethod::Abs; problem_size];
+    let update_methods = vec![nrf::residuals::NormalizationMethod::Abs; problem_size];
+    let res_config = nrf::residuals::ResidualsConfig::new(&stopping_residuals, &update_methods);
+
+    // Parametrization of the solver
+    let init = nalgebra::DVector::from_vec(vec![1.0]);
+    let resolution_method = nrf::solver::ResolutionMethod::NewtonRaphson;
+    let damping = false;
+    let mut rf = nrf::solver::default_with_guess(
+        init,
+        &iter_params,
+        &res_config,
+        resolution_method,
+        damping,
+    );
+
+    // Adpatation of the function to solve to the Model trait.
+    let mut user_model = nrf::model::UserModelFromFunction::new(problem_size, square2);
+
+    rf.solve(&mut user_model).unwrap();
+
+    // println!("{}", user_model.get_iteratives()[0]);
+    user_model.get_iteratives()[0]
+}
