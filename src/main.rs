@@ -67,7 +67,7 @@ impl Component for Model {
                 // self.text = output;
 
                 self.total = parser::solve_rb();
-                self.text = parser::solve_rb();
+                self.text = parser::solve_rb().to_string();
                 true
             }
         }
