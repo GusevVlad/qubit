@@ -80,6 +80,7 @@ impl Component for Model {
         false
     }
     fn view(&self) -> Html {
+        let title = "e".to_string();
         html! {
             <p>{ "Hello world!" }</p>
         }
