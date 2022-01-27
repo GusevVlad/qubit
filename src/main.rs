@@ -55,13 +55,13 @@ impl Component for Model {
                 let mut total = 0.0;
                 let split = input.split('\n');
 
-                for s in split {
-                    let p = parser::parse(s);
-                    if p.is_normal() {
-                        total = total + p;
-                    }
-                    output = format!("{}{}", output, transform(p) + "\n");
-                }
+                // for s in split {
+                //     let p = parser::parse(s);
+                //     if p.is_normal() {
+                //         total = total + p;
+                //     }
+                //     output = format!("{}{}", output, transform(p) + "\n");
+                // }
 
                 // self.total = total;
                 // self.text = output;
